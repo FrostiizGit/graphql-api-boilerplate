@@ -12,9 +12,15 @@ const schema = mergeSchemas({
 })
 
 const server = new ApolloServer({
-	schema,
+  schema,
+  subscriptions: {
+    path: "/subs"
+  },
 });
 
-server.listen().then(({ url }) => {
-	console.log(`🧙🏻‍♂️ Server ready at ${url}`);
+server.listen({
+  port: 28888,
+}).then(({ url, subscriptionsUrl }) => {
+  console.log(`🧙🏻‍♂️ GraphQL API ready at ${url}`);
+  console.log(`🧙🏻‍♂️ GraphQL Subscriptions ready at ${subscriptionsUrl}`);
 });
