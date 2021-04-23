@@ -1,6 +1,6 @@
-const typedefsExample = require("./schemas/schemasExample");
-const typedefsPing = require("./schemas/schemasPing");
+import pingTypedefs from "./schemas/schemasPing.js";
+import exampleTypedefs from "./schemas/schemasExample.js";
 
-const typeDefs = [typedefsExample, typedefsPing];
+const typeDefs = [pingTypedefs, exampleTypedefs];
 
-module.exports = typeDefs;
+export default typeDefs;

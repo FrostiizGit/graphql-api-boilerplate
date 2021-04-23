@@ -1,24 +1,42 @@
-const pubsub = require("../utils/pubsub");
+import pubsub from "../utils/pubsub.js";
 
-let example = [];
+// Example using the database
+import ExampleModel from "../../database/models/modelExample.js";
+
+// Example without a database connection
+let examplesArray = [];
 
 const resolvers = {
   Query: {
-    getExamples: () => example
+    getExamples: () => examplesArray,
+    async getExamplesFromDB() {
+      const result = await ExampleModel.findAll();
+      const allExamples = result.map((row) => row.dataValues.example) || [];
+      return allExamples;
+    },
   },
   Mutation: {
-    addExemple(root, args, context) {
+    addExample(root, args, context) {
       const { example: ex } = args;
-      example.push(ex);
-      pubsub.publish('POST_ADDED', { newMsg: example});
-      return example;
-    }
+      examplesArray.push(ex);
+      pubsub.publish("NEW_EXAMPLE", { newExample: examplesArray });
+      return examplesArray;
+    },
+    async addExampleToDB(root, args, context) {
+      const { example } = args;
+
+      const result = await ExampleModel.sync().then(() => {
+        return ExampleModel.create({ example });
+      });
+
+      return [result.dataValues.example];
+    },
   },
   Subscription: {
-    newMsg: {
-      subscribe: () => pubsub.asyncIterator(['POST_ADDED'])
+    newExample: {
+      subscribe: () => pubsub.asyncIterator(["NEW_EXAMPLE"]),
     },
-  }
-}
+  },
+};
 
-module.exports = resolvers;
+export default resolvers;

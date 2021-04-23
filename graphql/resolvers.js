@@ -1,6 +1,6 @@
-const exampleResolvers = require("./resolvers/resolversExample");
-const pingResolvers = require("./resolvers/resolversPing");
+import pingResolvers from "./resolvers/resolversPing.js";
+import exampleResolvers from "./resolvers/resolversExample.js";
 
-const resolvers = [exampleResolvers, pingResolvers];
+const resolvers = [pingResolvers, exampleResolvers];
 
-module.exports = resolvers;
+export default resolvers;

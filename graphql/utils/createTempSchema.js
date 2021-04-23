@@ -1,12 +1,15 @@
-const { makeExecutableSchema, addMockFunctionsToSchema } = require('apollo-server');
+import {
+  makeExecutableSchema,
+  addMockFunctionsToSchema,
+} from "apollo-server-express";
 
 const createTempSchema = (typdefs) => {
   const tempSchema = makeExecutableSchema({
-    typeDefs: [typdefs]
+    typeDefs: [typdefs],
   });
   addMockFunctionsToSchema({ schema: tempSchema });
 
   return tempSchema;
-}
+};
 
-module.exports = createTempSchema;
+export default createTempSchema;
