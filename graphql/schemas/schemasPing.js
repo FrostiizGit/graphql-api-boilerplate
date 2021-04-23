@@ -1,5 +1,5 @@
-const { gql } = require('apollo-server');
-const createTempSchema = require('../utils/createTempSchema');
+import { gql } from "apollo-server-express";
+import createTempSchema from "../utils/createTempSchema.js";
 
 const typedefs = gql`
   type Query {
@@ -9,4 +9,4 @@ const typedefs = gql`
 
 const tempSchema = createTempSchema(typedefs);
 
-module.exports = tempSchema;
+export default tempSchema;

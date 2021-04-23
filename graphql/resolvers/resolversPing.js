@@ -1,7 +1,7 @@
 const resolvers = {
   Query: {
-    ping: () => 'ping'
-  }
-}
+    ping: () => "ping",
+  },
+};
 
-module.exports = resolvers
+export default resolvers;

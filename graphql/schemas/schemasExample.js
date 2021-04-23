@@ -1,19 +1,21 @@
-const { gql } = require('apollo-server');
-const createTempSchema = require('../utils/createTempSchema');
+import { gql } from "apollo-server-express";
+import createTempSchema from "../utils/createTempSchema.js";
 
 const exampleTypedefs = gql`
   type Query {
     ping: String
     getExamples: [String]!
+    getExamplesFromDB: [String]!
   }
   type Mutation {
-    addExemple(example: String): [String]!
+    addExample(example: String!): [String]!
+    addExampleToDB(example: String!): [String]!
   }
   type Subscription {
-    newMsg: [String]
+    newExample: [String]
   }
 `;
 
 const tempSchema = createTempSchema(exampleTypedefs);
 
-module.exports = tempSchema;
+export default tempSchema;
